@@ -5,6 +5,7 @@
 #define GREEN 9
 #define YELLO 7
 #define SW	  2
+#define ITRT  3
 
 int mode = 0;
 int intv = 0;		// 0 ~ 9
@@ -21,7 +22,6 @@ void gpioisr()
 {
 	if(++intv > 8) intv = 0;
 	printf("GPIO interrupt occured...\n");
-			
 }
 
 int main()
@@ -31,7 +31,9 @@ int main()
 	pinMode(GREEN, OUTPUT);
 	pinMode(YELLO, OUTPUT);
 	pinMode(SW, INPUT);
+	pinMode(ITRT, INPUT);
 	wiringPiISR(SW, INT_EDGE_FALLING, gpioisr);		// registration GPIO ISR
+	wiringPiISR(ITRT, INT_EDGE_FALLING, gpioisr);	// interrupt stop
 
 	for(;;) //while(1) -> 무한 루프 설정 == for(;;) or while(1);
 	{
@@ -48,8 +50,13 @@ int main()
 			Toggle(GREEN); delay(tim);
 			Toggle(YELLO); delay(tim);
 		}
-				
+		if(ITRT == 0)
+		{
+			Toggle(RED); delay(200);
+			digitalWrite(GREEN, 0);
+			digitalWrite(YELLO, 0);
+			printf("GPIO interrupt stop occured...\n");	
+		}
 	}
-		
 	return 0;
 }
