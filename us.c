@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <wiringPi.h>
-#include <softTone.h>
-#include <softPwm.h>
 
 #define TRIG 8
 #define ECHO 9
-#define SUND 7
 
 double Dist()
 {
@@ -28,40 +25,4 @@ double Dist()
 		// 340m/s(음속) / 1000000s(us로 변환) / 2(왕복이므로 거리는 절반) * 100(cm로 변환)
 		// double dist = (t2 - t1) * 0.017; 	// 거리 계산 간소화 식 by cm
 		return (t2 - t1) * 0.017;
-}
-int main(int argc, char **argv)
-{
-	wiringPiSetup(); 			// Pin numbering method : wPi
-	pinMode(TRIG, OUTPUT);
-	pinMode(ECHO, INPUT);
-	pinMode(SUND, OUTPUT);
-	softToneCreate(SUND);
-	
-	for(;;)
-	{
-		printf("Distance : %f(cm) \n", Dist());
-		delay(500);		//기본 delay는 ms 단위 1000
-		
-		/* if (Dist() <= 50)
-		{
-			softToneWrite(SUND, 1047);
-			delay(100);
-		}
-		else if (Dist() >= 50 && Dist() <= 100)
-		{
-			softToneWrite(SUND, 523);
-			delay(100);
-		}
-		else if (Dist() >= 100)
-		{
-			softToneWrite(SUND, 262);
-			delay(100);
-		}
-		else 
-		{
-			softToneStop(SUND);
-		} */
-	}
-	
-	return 0;
 }
