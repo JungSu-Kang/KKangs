@@ -40,7 +40,7 @@ void playMusic()
 	for(int i=0;song[i] !=-1;i++)
 	{
 		playSound(song[i], rythm[i]);
-		delay(2000/(rythm[i]*rate));
+		delay(500/(rythm[i]*rate));
 	}
 	pwmWrite(wPi_PWM1, 0);
 }
