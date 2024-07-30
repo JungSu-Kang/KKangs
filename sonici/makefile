@@ -1,4 +1,4 @@
-usi	: usMain.o Trig.o usISR.o
+usi	: usMain.o Trig.o usisr.o
 	gcc -o usi usMain.o Trig.o usisr.o -lwiringPi
 
 Trig.o : Trig.c

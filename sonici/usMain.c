@@ -27,6 +27,7 @@ int main()
 
 
 	// printf("initial Distance : %.2f		\r",dist);
+	// TriggerEx();
 	pthread_create(&th, NULL, usThread, NULL);
 	//wiringPiISR(ECHO, INT_EDGE_BOTH, usISR);	// Regist ISR (ISR등록)
 	//Trigger();
